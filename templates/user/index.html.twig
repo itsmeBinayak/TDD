@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+<div class="container">
+		<h2>Users</h2>
+		<br>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>User Nr.</td>
+					<td>Name</td>
+					<td>Credit</td>
+					<td>Premium User</td>
+					<td></td>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for users in user %}
+					<tr>
+						<td>{{users.id}}</td>
+						<td>{{users.userName}}</td>
+						<td>{{users.credit}}</td>
+						
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
