@@ -19,6 +19,9 @@ class Room
     #[ORM\Column(type: 'boolean')]
     private $onlyForPremiumMembers;
 
+    public function __construct(bool $isPremium){
+        $this->onlyForPremiumMembers = $isPremium;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -46,5 +49,8 @@ class Room
         $this->onlyForPremiumMembers = $onlyForPremiumMembers;
 
         return $this;
+    }
+    function canBook(User $user) {
+        return ($this->getOnlyForPremiumMembers() && $user->getPremiumMember()) || !$this->getOnlyForPremiumMembers();
     }
 }

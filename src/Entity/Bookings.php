@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BookingsRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookingsRepository::class)]
@@ -76,5 +77,20 @@ class Bookings
         $this->endDate = $endDate;
 
         return $this;
+    }
+    function canBook(DateTime $startDate, DateTime $endDate) {
+        $duration = $startDate->diff($endDate);
+        $duration->h.'hours';
+        $duration->i.'minutes';
+        $duration->s.'seconds';
+        if ($duration->i>0 && $duration->h == 4) {
+            return false;
+        }
+        elseif ($duration->h == 4 || $duration->h<4) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

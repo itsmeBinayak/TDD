@@ -23,6 +23,10 @@ class User
     #[ORM\Column(type: 'boolean')]
     private $premiumMember;
 
+    public function __construct(bool $isPremium){
+        $this->premiumMember = $isPremium;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
