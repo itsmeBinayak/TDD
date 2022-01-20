@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -24,6 +25,7 @@ class User
     private $premiumMember;
 
     public function __construct(bool $isPremium){
+        $this->bookings = new ArrayCollection();
         $this->premiumMember = $isPremium;
     }
 
@@ -66,5 +68,9 @@ class User
         $this->premiumMember = $premiumMember;
 
         return $this;
+    }
+    public function canAfford(User $user,int $hour): bool
+    {
+        return ($user->getCredit()>$hour*2);
     }
 }
